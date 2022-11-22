@@ -139,10 +139,10 @@ const config = {
           editUrl: 'https://github.com/apache/superset/tree/master/docs',
         },
         blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          editUrl:
-            'https://github.com/facebook/docusaurus/edit/main/website/blog/',
+          editUrl: 'https://github.com/zhaoweilong/superset-doc-zh',
+          blogSidebarCount: "ALL",
+          blogSidebarTitle: '所有博文',
+          sortPosts: "ascending",
         },
         theme: {
           customCss: require.resolve('./src/styles/custom.css'),
@@ -179,24 +179,24 @@ const config = {
         },
         items: [
           {
-            label: 'Documentation',
+            label: '文档',
             items: [
               {
-                label: 'Getting Started',
+                label: '快速上手',
                 to: '/docs/intro',
               },
               {
-                label: 'Tutorial',
+                label: '教程',
                 to: '/docs/intro',
               },
               {
-                label: 'FAQ',
+                label: '常见问题',
                 to: '/docs/frequently-asked-questions',
               },
             ],
           },
           {
-            label: 'Community',
+            label: '社区',
             items: [
               {
                 label: 'Resources',
@@ -220,8 +220,9 @@ const config = {
               },
             ],
           },
+          {to: 'blog', label: '本站教程', position: 'left'},
           {
-            href: 'https://github.com/apache/superset',
+            href: 'https://github.com/zhaoweilong/superset-doc-zh',
             position: 'right',
             class: 'github-logo-container',
           },

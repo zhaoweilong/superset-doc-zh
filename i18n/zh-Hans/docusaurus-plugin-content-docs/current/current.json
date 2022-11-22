@@ -1,0 +1,26 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.Installation and Configuration": {
+    "message": "Installation and Configuration",
+    "description": "The label for category Installation and Configuration in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Connecting to Databases": {
+    "message": "Connecting to Databases",
+    "description": "The label for category Connecting to Databases in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Creating Charts and Dashboards": {
+    "message": "Creating Charts and Dashboards",
+    "description": "The label for category Creating Charts and Dashboards in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Miscellaneous": {
+    "message": "Miscellaneous",
+    "description": "The label for category Miscellaneous in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Contributing": {
+    "message": "Contributing",
+    "description": "The label for category Contributing in sidebar tutorialSidebar"
+  }
+}
