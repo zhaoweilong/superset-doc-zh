@@ -28,13 +28,14 @@ const config = {
   title: 'Superset',
   tagline:
     'Apache Superset is a modern data exploration and visualization platform',
-  url: 'https://superset.apache.org',
-  baseUrl: '/',
+  url: 'https://zhaoweilong.github.io',
+  baseUrl: '/superset-doc-zh/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'throw',
   favicon: 'img/favicon.ico',
-  organizationName: 'apache', // Usually your GitHub org/user name.
-  projectName: 'superset', // Usually your repo name.
+  organizationName: 'zhaoweilong', // Usually your GitHub org/user name.
+  projectName: 'superset-doc-zh', // Usually your repo name.
+  trailingSlash: false,
   themes: ['@saucelabs/theme-github-codeblock'],
   plugins: [
     ["docusaurus-plugin-less", {
