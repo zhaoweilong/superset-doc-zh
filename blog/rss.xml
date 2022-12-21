@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+    <channel>
+        <title>Superset Blog</title>
+        <link>https://zhaoweilong.github.io/superset-doc-zh/blog</link>
+        <description>Superset Blog</description>
+        <lastBuildDate>Tue, 22 Nov 2022 00:00:00 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <item>
+            <title><![CDATA[本站简介]]></title>
+            <link>https://zhaoweilong.github.io/superset-doc-zh/blog/本站简介</link>
+            <guid>本站简介</guid>
+            <pubDate>Tue, 22 Nov 2022 00:00:00 GMT</pubDate>
+            <description><![CDATA[翻译原因]]></description>
+            <content:encoded><![CDATA[<h3 class="anchor anchorWithStickyNavbar_mojV" id="翻译原因">翻译原因<a class="hash-link" href="#翻译原因" title="标题的直接链接">​</a></h3><p>我在学习Superset的工程中发现相关的资料较少，我决定自己翻译一下Superset的官方文档。本文档基于Superset 2.0.0。</p><h3 class="anchor anchorWithStickyNavbar_mojV" id="本地开发运行代码">本地开发运行代码<a class="hash-link" href="#本地开发运行代码" title="标题的直接链接">​</a></h3><div class="codeBlockContainer_I0IT theme-code-block"><div class="codeBlockContent_wNvx"><pre tabindex="0" class="prism-code language-text codeBlock_jd64 thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_mRuA"><span class="token-line" style="color:#393A34"><span class="token plain">npm run start -- --locale zh-Hans</span><br></span></code></pre><button type="button" aria-label="复制代码到剪贴板" class="copyButton_wuS7 clean-btn">复制</button></div></div>]]></content:encoded>
+            <author>zhaoweilong0220@163.com (ZhaoWeilong)</author>
+        </item>
+        <item>
+            <title><![CDATA[文档翻译过程]]></title>
+            <link>https://zhaoweilong.github.io/superset-doc-zh/blog/文档翻译过程</link>
+            <guid>文档翻译过程</guid>
+            <pubDate>Wed, 23 Nov 2022 00:00:00 GMT</pubDate>
+            <description><![CDATA[从github下载到本地]]></description>
+            <content:encoded><![CDATA[<h3 class="anchor anchorWithStickyNavbar_mojV" id="从github下载到本地">从github下载到本地<a class="hash-link" href="#从github下载到本地" title="标题的直接链接">​</a></h3><h3 class="anchor anchorWithStickyNavbar_mojV" id="执行docusaurus的翻译命令">执行docusaurus的翻译命令<a class="hash-link" href="#执行docusaurus的翻译命令" title="标题的直接链接">​</a></h3><div class="codeBlockContainer_I0IT theme-code-block"><div class="codeBlockContent_wNvx"><pre tabindex="0" class="prism-code language-text codeBlock_jd64 thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_mRuA"><span class="token-line" style="color:#393A34"><span class="token plain">npm run start -- --locale zh-Hans</span><br></span></code></pre><button type="button" aria-label="复制代码到剪贴板" class="copyButton_wuS7 clean-btn">复制</button></div></div>]]></content:encoded>
+            <author>zhaoweilong0220@163.com (ZhaoWeilong)</author>
+        </item>
+    </channel>
+</rss>
