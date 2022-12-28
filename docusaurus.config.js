@@ -35,7 +35,7 @@ const config = {
   favicon: 'img/favicon.ico',
   organizationName: 'zhaoweilong', // Usually your GitHub org/user name.
   projectName: 'superset-doc-zh', // Usually your repo name.
-  deploymentBranch : 'gh-pages',
+  deploymentBranch : 'gh-deploy',
   trailingSlash: false,
   themes: ['@saucelabs/theme-github-codeblock'],
   plugins: [
