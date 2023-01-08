@@ -30,7 +30,9 @@ COPY build /usr/share/nginx/html
 ~~~
 docker  build -t superset-doc-zh .
 ~~~
-####
+
+
+#### 运行
 ~~~
 docker run --name superset-doc-zh -d -p 8080:80 superset-doc-zh
 ~~~

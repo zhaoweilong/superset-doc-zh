@@ -1,60 +1,49 @@
 ---
-title: Introduction
+title: 简介
 hide_title: true
 sidebar_position: 1
 ---
 
-## What is Apache Superset?  中文
+## Apache Superset简介
 
-Apache Superset is a modern, enterprise-ready business intelligence web application. It
-is fast, lightweight, intuitive, and loaded with options that make it easy for users of all skill
-sets to explore and visualize their data, from simple pie charts to highly detailed deck.gl
-geospatial charts.
+Apache Superset是一个现代、企业级的BI网页应用。 它是快速的、轻量级的、易懂的和定制化加载的。通过使用简单的饼状图到细节丰富的地理空间图表，让它使所有用户更容易去探索和可视化他们的数据。
 
-Here are a **few different ways you can get started with Superset**:
+下面是你可以开始使用Apache Superset的方式:
 
-- Download the [source from Apache Foundation's website](https://dist.apache.org/repos/dist/release/superset/)
-- Download the latest Superset version from [Pypi here](https://pypi.org/project/apache-superset/)
-- Setup Superset locally with one command
-  using [Docker Compose](installation/installing-superset-using-docker-compose)
-- Download the [Docker image](https://hub.docker.com/r/apache/superset) from Dockerhub
-- Install the latest version of Superset
-  [from GitHub](https://github.com/apache/superset/tree/latest)
+- 从[Apache基金会网站](https://dist.apache.org/repos/dist/release/superset/)下载源码
+- 从[Pypi](https://pypi.org/project/apache-superset/) 上下载最新的Superset版本
+- 使用[Docker Compose](installation/installing-superset-using-docker-compose) 一步构建本地Superset
+- 从Dockerhub上下载[Docker 镜像](https://hub.docker.com/r/apache/superset)
+- 通过[GitHub](https://github.com/apache/superset/tree/latest)安装最新的版本的Superset
 
-Superset provides:
+Superset特性:
 
-- An intuitive interface for visualizing datasets and crafting interactive dashboards
-- A wide array of beautiful visualizations to showcase your data
-- Code-free visualization builder to extract and present datasets
-- A world-class SQL IDE for preparing data for visualization, including a rich metadata browser
-- A lightweight semantic layer which empowers data analysts to quickly define custom dimensions and metrics
-- Out-of-the-box support for most SQL-speaking databases
-- Seamless, in-memory asynchronous caching and queries
-- An extensible security model that allows configuration of very intricate rules on on who can access which product features and datasets.
-- Integration with major authentication backends (database, OpenID, LDAP, OAuth, REMOTE_USER, etc)
-- The ability to add custom visualization plugins
-- An API for programmatic customization
-- A cloud-native architecture designed from the ground up for scale
+- 提供能进行可视化数据集和制作交互式仪表盘的简单易懂的的接口
+- 展示你的数据的漂亮的数据可视化的大量数据组。（需要后期修改）
+- 提取和展示数据集的无代码的可视化工具
+- 包含一个丰富的元数据浏览器，为了可视化的准备数据的世界级的SQL IDE。
+- 快速地制定自定义维度和度量的增强数据分析的轻量级语义层
+- 支持大部分SQL语言数据库开箱即用
+- 无缝的、内存异步的缓存和查询
+- 允许配置可访问产品特性和数据集的复杂规则的、能扩展的安全模型
+- 集成了主要的后台认证 (database, OpenID, LDAP, OAuth, REMOTE_USER, etc)
+- 增加自定义可视化插件的能力
+- 定制编程的API
+- 为了大规模设计的云原生架构。（需要后期修改）
 
-Superset is cloud-native and designed to be highly available. It was designed to scale out to large,
-distributed environments and works very well inside containers. While you can easily test drive
-Superset on a modest setup or simply on your laptop, there’s virtually no limit around scaling out
-the platform.
+Superset是云原生的和为高可用性设计的的。它被设计成能横向扩展、能运行在分布式环境中和在内部容器能运行良好。当你想通过几步的设置或者仅仅在你的笔记本上简单地测试Superset时，它几乎没有任何限制。
 
-Superset is also cloud-native in the sense that it is flexible and lets you choose the:
+从某种意义上来说，Superest也是云原生的。它是灵活的，它能让你选择
 
-- web server (Gunicorn, Nginx, Apache),
-- metadata database engine (MySQL, Postgres, MariaDB, etc),
-- message queue (Redis, RabbitMQ, SQS, etc),
-- results backend (S3, Redis, Memcached, etc),
-- caching layer (Memcached, Redis, etc),
+- Web服务器 (Gunicorn, Nginx, Apache),
+- 元数据库引擎 (MySQL, Postgres, MariaDB, etc),
+- 消息队列 (Redis, RabbitMQ, SQS, etc),
+- 后端结果 (S3, Redis, Memcached, etc),
+- 缓存层(Memcached, Redis, etc),
 
-Superset also works well with services like NewRelic, StatsD and DataDog, and has the ability to run
-analytic workloads against most popular database technologies.
+Superset也能和像NewRelic, StatsD and DataDog这类的服务一起运行。它通过流行的数据库技术分析工作负载。
 
-Superset is currently run at scale at many companies. For example, Superset is run in Airbnb’s
-production environment inside Kubernetes and serves 600+ daily active users viewing over 100K charts
-a day.
+当前，Superset在很多公司大规模地使用。例如，Superset正在运行在Airbnb内部的Kubernetes生产环境中，它服务了每天查看100k次图表的600多个活跃用户。
 
-You can find a partial list of industries and companies embracing Superset
-[on this page in GitHub](https://github.com/apache/superset/blob/master/RESOURCES/INTHEWILD.md).
+你能在这个[GitHub页面](https://github.com/apache/superset/blob/master/RESOURCES/INTHEWILD.md)找到一部分使用Superset的行业和公司。
+
