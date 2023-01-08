@@ -37,6 +37,10 @@ const config = {
   projectName: 'superset-doc-zh', // Usually your repo name.
   deploymentBranch : 'gh-deploy',
   trailingSlash: false,
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'zh-Hans'],
+  },
   themes: ['@saucelabs/theme-github-codeblock'],
   plugins: [
     ["docusaurus-plugin-less", {
