@@ -1,73 +1,49 @@
 ---
-title: Installing Locally Using Docker Compose
+title: 使用Docker Compose安装本地安装
 hide_title: true
 sidebar_position: 1
 version: 1
 ---
 
-## Installing Superset Locally Using Docker Compose
-
-The fastest way to try Superset locally is using Docker and Docker Compose on a Linux or Mac OSX
-computer. Superset does not have official support for Windows, so we have provided a VM workaround
-below.
-
-### 1. Install a Docker Engine and Docker Compose
+## 使用Docker Compose安装本地安装Superset
+在本地最快的尝试Superset方式是在一个Linux或者Mac系统的电脑上使用Docker和Docker Compose。Superset对Windows没有官方支持，所以我们提供了一个通过使用虚拟机的变通方式。
+### 1. 安装Docker引擎和Docker Compose
 
 **Mac OSX**
 
-[Install Docker for Mac](https://docs.docker.com/docker-for-mac/install/), which includes the Docker
-engine and a recent version of `docker-compose` out of the box.
-
-Once you have Docker for Mac installed, open up the preferences pane for Docker, go to the
-"Resources" section and increase the allocated memory to 6GB. With only the 2GB of RAM allocated by
-default, Superset will fail to start.
+[Mac安装Docker](https://docs.docker.com/docker-for-mac/install/), 它包括开箱即用的Docker引擎和最新版本的Docker Compose.
+当你在Mac上安装Docker后，打开docker的偏好设置，进入到资源区域，把分配内存增加到6GB。当默认分配2GB内存时，Superset将会启动失败。
 
 **Linux**
 
-[Install Docker on Linux](https://docs.docker.com/engine/install/) by following Docker’s
-instructions for whichever flavor of Linux suits you. Because `docker-compose` is not installed as
-part of the base Docker installation on Linux, once you have a working engine, follow the
-[docker-compose installation instructions](https://docs.docker.com/compose/install/) for Linux.
+通过使用适合你的系统的Docker的使用说明来[在Linux上安装Docker](https://docs.docker.com/engine/install/).因为`docker-compose` 你不是在Linux上安装docker的一部分, 当你有了一个能运行的引擎, 使用Linux的[docker-compose 安装说明](https://docs.docker.com/compose/install/)来安装一下docker-compose.
 
 **Windows**
 
-Superset is not officially supported on Windows unfortunately. One option for Windows users to
-try out Superset locally is to install an Ubuntu Desktop VM via
-[VirtualBox](https://www.virtualbox.org/) and proceed with the Docker on Linux instructions inside
-of that VM. We recommend assigning at least 8GB of RAM to the virtual machine as well as
-provisioning a hard drive of at least 40GB, so that there will be enough space for both the OS and
-all of the required dependencies. Docker Desktop [recently added support for Windows Subsystem for Linux (WSL) 2](https://docs.docker.com/docker-for-windows/wsl/), which may be another option.
+不幸的是，Superset不支持在Windows上安装。对于想本地安装Superest的Windows用户可以通过[VirtualBox](https://www.virtualbox.org/)安装一个Ubuntu桌面版的系统，在这个虚拟机上使用linux架构来启动docker。
+我们建议至少分配8GB内存和至少40G的硬盘存储给这个虚拟机，以便于有足够的空间给操作系统和Superset的依赖使用。最近通过增加Windows子系统来支持Linux(WSL)2的[Docker Desktop](https://www.virtualbox.org/)，也可能是另一个选择。
+### 2. 克隆Superset的GitHub仓库
 
-### 2. Clone Superset's GitHub repository
-
-[Clone Superset's repo](https://github.com/apache/superset) in your terminal with the
-following command:
+在您的终端通过使用下面的命令行来拷贝[Superset仓库](https://github.com/apache/superset)
 
 ```bash
 git clone https://github.com/apache/superset.git
 ```
 
-Once that command completes successfully, you should see a new `superset` folder in your
-current directory.
+当上述命令成功完成后，你会在当前的文件夹下看到新创建的superst文件夹。
 
-### 3. Launch Superset Through Docker Compose
+### 3. 使用Docker Compose启动Superset
 
-Navigate to the folder you created in step 1:
-
+进入到在上一步创建的的文件夹里:
 ```bash
 cd superset
 ```
-
-When working on master branch, run the following commands:
-
+当你使用master分支时, 运行下面的命令:
 ```bash
 docker-compose -f docker-compose-non-dev.yml pull
 docker-compose -f docker-compose-non-dev.yml up
 ```
-
-Alternatively, you can also run a specific version of Superset by first checking out
-the branch/tag, and then starting `docker-compose` with the `TAG` variable.
-For example, to run the 1.4.0 version, run the following commands:
+或者，你可以通过使用签出的分支标签来运行指定版本的Superset. 然后使用TAG变量运行docker compose。例如，想要运行1.4.0版本，执行下面的命令：
 
 ```bash
 git checkout 1.4.0
@@ -75,45 +51,37 @@ TAG=1.4.0 docker-compose -f docker-compose-non-dev.yml pull
 TAG=1.4.0 docker-compose -f docker-compose-non-dev.yml up
 ```
 
-You should see a wall of logging output from the containers being launched on your machine. Once
-this output slows, you should have a running instance of Superset on your local machine!
+当容器在你的机器上启动时，你可以看到大量的日志输出。当日志输出减少，在你的本地机器上会运行一个Superset实例。
 
-**Note:** This will bring up superset in a non-dev mode, changes to the codebase will not be reflected.
-If you would like to run superset in dev mode to test local changes, simply replace the previous command with: `docker-compose up`,
-and wait for the `superset_node` container to finish building the assets.
+**注意:** 这将会使Superset处于非开发模式, 修改代码库将不会实时反应出来.如果你想在测试模式下测试本地修改, 你可以使用`docker-compose up`替换之前的命令,然后等待Superset节点容器构建完资源。
 
-#### Configuring Docker Compose
+#### 配置Docker Compose
 
-The following is for users who want to configure how Superset starts up in Docker Compose; otherwise, you can skip to the next section.
+下面的的部分是为了想要在Docker Compose启动时配置Superset的准备的。如果你不想配置，你可以跳过下面的部分。
 
-You can configure the Docker Compose settings for dev and non-dev mode with `docker/.env` and `docker/.env-non-dev` respectively. These environment files set the environment for most containers in the Docker Compose setup, and some variables affect multiple containers and others only single ones.
+你可以使用`docker/.env`和`docker/.env-non-dev`分别的为Docker Compose配置开发模式和非开发模式。在Docker Compose配置中，这些环境变量文件为大多数的容器设置变量，其中一些变量影响多个容器，其他的只影响一个容器。一个重要的变量是`SUPERSET_LOAD_EXAMPLES`，它决定`superset_init`容器是否在数据库和Superset加载示例和可视化数据。这些示例对于大多数人是有用的，但是，对于有经验的用户可能是不需要的。加载过程有时会花费几分钟和大量的CUP，所以在一个资源紧张的设备上你可能希望禁用他。
 
-One important variable is `SUPERSET_LOAD_EXAMPLES` which determines whether the `superset_init` container will load example data and visualizations into the database and Superset. These examples are quite helpful for most people, but probably unnecessary for experienced users. The loading process can sometimes take a few minutes and a good amount of CPU, so you may want to disable it on a resource-constrained device.
+**注意:** 用户经常想要从Superset连接其他的数据库.当前,最容易的方式是修改`docker-compose-non-dev.yml`文件，然后添加你的数据库作为其他服务依赖的服务（通过`x-superset-depends-on`），其他人试图在Superset服务上设置`network_mode: host`，但是，这个安装通常会打断安装，因为对于这些服务来说，这个配置需要使用Docker Compose域名解析器。如果你对于这个你有好的解决方案，请告知我们！
 
-**Note:** Users often want to connect to other databases from Superset. Currently, the easiest way to do this is to modify the `docker-compose-non-dev.yml` file and add your database as a service that the other services depend on (via `x-superset-depends-on`). Others have attempted to set `network_mode: host` on the Superset services, but these generally break the installation, because the configuration requires use of the Docker Compose DNS resolver for the service names. If you have a good solution for this, let us know!
+### 4. 登录到Superset
 
-### 4. Log in to Superset
+你的本地Superset实例包括了一个存储数据的Postgres服务，它也预载了一些示例数据集。你能通过浏览器访问`http://localhost:8088`来进入Superset.当你的浏览器默认使用https,请确保使用http。
 
-Your local Superset instance also includes a Postgres server to store your data and is already
-pre-loaded with some example datasets that ship with Superset. You can access Superset now via your
-web browser by visiting `http://localhost:8088`. Note that many browsers now default to `https` - if
-yours is one of them, please make sure it uses `http`.
-
-Log in with the default username and password:
+使用默认的用户名和密码登录
 
 ```bash
 username: admin
 ```
-
 ```bash
 password: admin
 ```
 
-### 5. Connecting Superset to your local database instance
+### 5. 使用本地数据库实例连接Superset
 
-When running Superset using `docker` or `docker-compose` it runs in its own docker container, as if the Superset was running in a separate machine entirely. Therefore attempts to connect to your local database with hostname `localhost` won't work as `localhost` refers to the docker container Superset is running in, and not your actual host machine. Fortunately, docker provides an easy way to access network resources in the host machine from inside a container, and we will leverage this capability to connect to our local database instance.
+当使用`docker`或者`docker-compose`运行Superset，它运行在自己的docker容器时，它好像运行在一个独立的服务器中。因为`localhost`指向正在运行Superset的docker容器，而不是你实际的本地机器，所以，试图使用主机名`localhost`连接你的本地数据库将不会成功。幸运的是，docker提供一个简单的方式去连接网络资源，它能让我们从容器内部连接到本地机器，我们将充分利用这个能力去连接我们本地的数据库实例。
 
-Here the instructions are for connecting to postgresql (which is running on your host machine) from Superset (which is running in its docker container). Other databases may have slightly different configurations but gist would be same and boils down to 2 steps -
+下面的将说明如何从Superset（它运行在docker容器中）连接postgresql（它运行在你的本地机器中）.
+其他的数据库可能会有轻微不同的配置，但是要点是相同的，归结为下面两步
 
-1. **(Mac users may skip this step)** Configuring the local postgresql/database instance to accept public incoming connections. By default postgresql only allows incoming connections from `localhost` only, but re-iterating once again, `localhosts` are different for host machine and docker container. For postgresql this involves make one-line changes to the files `postgresql.conf` and `pg_hba.conf`, you can find helpful links tailored to your OS / PG version on the web easily for this task. For docker it suffices to only whitelist IPs `172.0.0.0/8` instead of `*`, but in any case you are _warned_ that doing this in a production database _may_ have disastrous consequences as you are opening your database to the public internet.
-2. Instead of `localhost`, try using `host.docker.internal` (Mac users) or `172.18.0.1` (Linux users) as the host name when attempting to connect to the database. This is docker internal detail, what is happening is that in Mac systems docker creates a dns entry for the host name `host.docker.internal` which resolves to the correct address for the host machine, whereas in linux this is not the case (at least by default). If neither of these 2 hostnames work then you may want to find the exact host name you want to use, for that you can do `ifconfig` or `ip addr show` and look at the IP address of `docker0` interface that must have been created by docker for you. Alternately if you don't even see the `docker0` interface try (if needed with sudo) `docker network inspect bridge` and see if there is an entry for `"Gateway"` and note the IP address.
+1. **(Mac用户可以跳过这个步骤)**配置本地的postgresql数据库允许公共连接。postgresql默认只允许从`localhost`连接，再说一次，对于本地机器和docker容器来说`localhosts`是不同的。对于postgresql,它只需要在`postgresql.conf`和`pg_hba.conf`修改一行，对于这个修改你可以在网站上找到针对你的操作系统和PG版本的有用链接。对于docker来说，将IP白名单从`172.0.0.0/8` 修改为 `*`就可以了,无论如何，你是被警告的去做这个，因为你把你的数据库对所以人开放了，在生产的数据库里可能会产生灾难性的后果。
+2. 当试图连接数据库是，使用`host.docker.internal` (Mac用户) or `172.18.0.1` (Linux用户)代替`localhost`作为作为主机名。这是docker内部细节：在Mac系统docker创建了一个叫`host.docker.internal`的域名解析器入口，它负责解析本地正确的地址。然而，在linux不是这样的（至少默认情况）。如果这两个主机名都不成功，你可能需要精确的主机名来使用，对此，可以使用`ifconfig`或者`ip addr show`，查看`docker0`接口的IP地址，这个接口是docker为你创建的。如果你没有看见`docker0`接口，请运行（如果它需要使用sudo）`docker network inspect bridge`，查看是否有一个网关入口，它标注了IP地址。

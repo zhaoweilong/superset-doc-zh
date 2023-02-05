@@ -4,23 +4,23 @@
     "description": "The label for version current"
   },
   "sidebar.tutorialSidebar.category.Installation and Configuration": {
-    "message": "Installation and Configuration",
+    "message": "安装和配置",
     "description": "The label for category Installation and Configuration in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.Connecting to Databases": {
-    "message": "Connecting to Databases",
+    "message": "连接数据库",
     "description": "The label for category Connecting to Databases in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.Creating Charts and Dashboards": {
-    "message": "Creating Charts and Dashboards",
+    "message": "创建图标和仪表盘",
     "description": "The label for category Creating Charts and Dashboards in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.Miscellaneous": {
-    "message": "Miscellaneous",
+    "message": "其他",
     "description": "The label for category Miscellaneous in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.Contributing": {
-    "message": "Contributing",
+    "message": "贡献",
     "description": "The label for category Contributing in sidebar tutorialSidebar"
   }
 }
