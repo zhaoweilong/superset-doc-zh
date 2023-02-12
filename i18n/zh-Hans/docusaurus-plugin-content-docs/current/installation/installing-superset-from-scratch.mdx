@@ -1,161 +1,149 @@
 ---
-title: Installing From Scratch
+title: 使用Scratch安装
 hide_title: true
 sidebar_position: 2
 version: 1
 ---
 
-## Installing Superset from Scratch
+## 使用Scratch安装Superset
 
-### OS Dependencies
+### 操作系统依赖
 
-Superset stores database connection information in its metadata database. For that purpose, we use
-the cryptography Python library to encrypt connection passwords. Unfortunately, this library has OS
-level dependencies.
+Superset在它的元数据库里存储数据库连接信息。因为这个原因，我们使用Python加密库给密码加密。不幸的是，这个库有操作系统级别的依赖。
 
-**Debian and Ubuntu**
+**Debian和Ubuntu**
 
-The following command will ensure that the required dependencies are installed:
+下面的命令将确保需要的依赖被安装：
 
 ```
 sudo apt-get install build-essential libssl-dev libffi-dev python-dev python-pip libsasl2-dev libldap2-dev default-libmysqlclient-dev
 ```
 
-In Ubuntu 20.04 the following command will ensure that the required dependencies are installed:
+对于Ubuntu 20.04，下面的命令将确保需要的依赖被安装:
 
 ```
 sudo apt-get install build-essential libssl-dev libffi-dev python3-dev python3-pip libsasl2-dev libldap2-dev default-libmysqlclient-dev
 ```
 
-**Fedora and RHEL-derivative Linux distributions**
+**Fedora和红帽衍生的Linux分支**
 
-Install the following packages using the `yum` package manager:
+
+使用`yum`包管理器安装下面的包：
 
 ```
 sudo yum install gcc gcc-c++ libffi-devel python-devel python-pip python-wheel openssl-devel cyrus-sasl-devel openldap-devel
 ```
 
-In more recent versions of CentOS and Fedora, you may need to install a slightly different set of packages using `dnf`:
-
+在最新版本的CentOS和Fedora中,你可能需要使用`dnf`来安装稍微有点不同的包：
 ```
 sudo dnf install gcc gcc-c++ libffi-devel python3-devel python3-pip python3-wheel openssl-devel cyrus-sasl-devel openldap-devel
 ```
 
-Also, on CentOS, you may need to upgrade pip for the install to work:
-
+另外，在CentOS中，你可能需要升级pip才能成功安装：
 ```
 pip3 install --upgrade pip
 ```
 
 **Mac OS X**
 
-If you're not on the latest version of OS X, we recommend upgrading because we've found that many
-issues people have run into are linked to older versions of Mac OS X. After updating, install the
-latest version of XCode command line tools:
+如果你不是最新版本的mac操作系统，我们建议升级到最新版本，因为我们发现，多数有问题的用户运行在mac的老版本上。在升级后，安装最新办的的XCode命令行工具：
 
 ```
 xcode-select --install
 ```
 
-We don't recommend using the system installed Python. Instead, first install the
-[homebrew](https://brew.sh/) manager and then run the following commands:
+我们不建议使用系统安装的Python.改为首先安装[homebrew](https://brew.sh/)管理器，然后执行下面的命令
 
 ```
 brew install readline pkg-config libffi openssl mysql postgres
 ```
 
-You should install a recent version of Python (the official docker image uses 3.8.12). We'd recommend using a Python version manager like [pyenv](https://github.com/pyenv/pyenv) (and also [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv)).
+你应该安装一个最新的版本的Python（官方docker镜像使用3.8.12）。我们建议使用一个Python版本管理器，例如 [pyenv](https://github.com/pyenv/pyenv) 或者 [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv)。
 
-Let's also make sure we have the latest version of `pip` and `setuptools`:
+让我们确认我们有最新版本的`pip`和`setuptools`：
 
 ```
 pip install --upgrade setuptools pip
 ```
 
-Lastly, you may need to set LDFLAGS and CFLAGS for certain Python packages to properly build. You can export these variables with:
+最后，为了Python包能进行构建，你可以需要设置LDFLAGS和CFLAGS。你能使用下面的语句导出这些变量：
 
 ```
 export LDFLAGS="-L$(brew --prefix openssl)/lib"
 export CFLAGS="-I$(brew --prefix openssl)/include"
 ```
 
-These will now be available when pip installing requirements.
+这些操作将满足pip安装的条件。
 
-### Python Virtual Environment
+### Python虚拟环境
 
-We highly recommend installing Superset inside of a virtual environment. Python ships with
-`virtualenv` out of the box. If you're using [pyenv](https://github.com/pyenv/pyenv), you can install [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv). Or you can install it with `pip`:
+我们强烈推荐使用一个虚拟环境安装Superset。Python带有开箱即用的`virtualenv`。如果你正在使用[pyenv](https://github.com/pyenv/pyenv),你可以安装 [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv)。或者你使用使用`pip`安装它。
 
 ```
 pip install virtualenv
 ```
 
-You can create and activate a virtual environment using:
+你可以通过下面的命令创建和激活一个虚拟环境：
 
 ```
-# virtualenv is shipped in Python 3.6+ as venv instead of pyvenv.
-# See https://docs.python.org/3.6/library/venv.html
+# virtualenv是从Python 3.6+开始代替pyvenv作为虚拟环境库
+# 详情见 https://docs.python.org/3.6/library/venv.html
 python3 -m venv venv
 . venv/bin/activate
 ```
 
-Or with pyenv-virtualenv:
+或者使用pyenv-virtualenv：
 
 ```
-# Here we name the virtual env 'superset'
+# 我们给虚拟环境命名为'superset'
 pyenv virtualenv superset
 pyenv activate superset
 ```
 
-Once you activated your virtual environment, all of the Python packages you install or uninstall
-will be confined to this environment. You can exit the environment by running `deactivate` on the
-command line.
+一旦你激活你的虚拟环境，所有的安装或卸载的Python包都会限制在这个虚拟环境中。你可以在命令行中执行`deactivate`来退出这个环境。
 
-### Installing and Initializing Superset
+### 安装和初始化Superset
 
-First, start by installing `apache-superset`:
+首先，开始安装`apache-superset`:
 
 ```
 pip install apache-superset
 ```
 
-Then, you need to initialize the database:
+然后, 你需要初始化数据库:
 
 ```
 superset db upgrade
 ```
 
-Finish installing by running through the following commands:
+最后，通过下面的命令运行Superset:
 
 ```
-# Create an admin user in your metadata database (use `admin` as username to be able to load the examples)
+# 在你的元数据库引擎里创建admin用户（使用`admin`作为用户名，它能够加载示例）
 export FLASK_APP=superset
 superset fab create-admin
 
-# Load some data to play with
+# 加载实例数据
 superset load_examples
 
-# Create default roles and permissions
+# 创建默认角色和权限
 superset init
 
-# To start a development web server on port 8088, use -p to bind to another port
+# 在端口8088上启动开发web服务器，可以使用-p绑定其他的端口
 superset run -p 8088 --with-threads --reload --debugger
 ```
 
-If everything worked, you should be able to navigate to `hostname:port` in your browser (e.g.
-locally by default at `localhost:8088`) and login using the username and password you created.
+如果每步都成功，你应该在你的浏览器中输入`hostname:port`（例如：本地默认是 `localhost:8088`），然后，使用你创建的用户名和密码登录。
 
-### Installing Superset with Helm in Kubernetes
+### 在Kubernetes使用Helm安装Superset
 
-You can install Superset into Kubernetes with [Helm](https://helm.sh/). The chart is located in
-the `helm/` directory.
+你可以使用[Helm](https://helm.sh/)把Superset安装在Kubernetes，它将会位于`helm/`目录中。
 
-To install Superset in your Kubernetes cluster with Helm 3, run:
+为了在你的Kubernetes集群中使用Helm 3安装Superset，请执行下面的命令：
 
 ```
 helm dep up ./helm/superset
 helm upgrade --install superset ./helm/superset
 ```
 
-Note that the above command will install Superset into `default` namespace of your Kubernetes
-cluster.
+注意：执行上面的命令将在你的Kubernetes集群的`default`命名空间中安装。
