@@ -1,89 +1,79 @@
 ---
-title: Configuring Superset
+title: 配置Superset
 hide_title: true
 sidebar_position: 3
 version: 1
 ---
 
-## Configuring Superset
+## 配置Superset
 
-### Configuration
+### 配置
 
-To configure your application, you need to create a file `superset_config.py` and add it to your
-`PYTHONPATH`. If your application was installed using docker-compose an alternative configuration is required. See [https://github.com/apache/superset/tree/master/docker#readme](https://github.com/apache/superset/tree/master/docker#readme) for details.
+为了配置你的应用，你需要创建`superset_config.py`文件，增加到你的`PYTHONPATH`下。如果你的应用是使用docker-compose安装的，替代的配置是需要的，更多的细节在[https://github.com/apache/superset/tree/master/docker#readme](https://github.com/apache/superset/tree/master/docker#readme)查看。
 
-Here are some of the parameters you can set in that file:
+下面是在文件里可以设置的参数：
 ```
-# Superset specific config
+# Superset特有的配置
 ROW_LIMIT = 5000
 
 SUPERSET_WEBSERVER_PORT = 8088
 
-# Flask App Builder configuration
-# Your App secret key will be used for securely signing the session cookie
-# and encrypting sensitive information on the database
-# Make sure you are changing this key for your deployment with a strong key.
-# You can generate a strong key using `openssl rand -base64 42`
+# Flask应用构建配置
+# 你的应用密钥将用于安全登录回话cookie和在数据库里加密敏感信息
+# 确保更改这个密钥为了你部署时使用一个安全的密钥
+# 你可以使用`openssl rand -base64 42`创建一个更安全的密钥
 
 SECRET_KEY = 'YOUR_OWN_RANDOM_GENERATED_SECRET_KEY'
 
-# The SQLAlchemy connection string to your database backend
-# This connection defines the path to the database that stores your
-# superset metadata (slices, connections, tables, dashboards, ...).
-# Note that the connection information to connect to the datasources
-# you want to explore are managed directly in the web UI
+# SQLAlchemy连接你的后台数据库
+# 连接数据库的连接存储在superset的元数据里（slices,连接,表,仪表盘, ...）
+#注意：连接到数据源的连接，你可以通过Web页面直接进行管理
+
 SQLALCHEMY_DATABASE_URI = 'sqlite:////path/to/superset.db'
 
-# Flask-WTF flag for CSRF
+# Flask-WTF的CSRF标识
 WTF_CSRF_ENABLED = True
-# Add endpoints that need to be exempt from CSRF protection
+# 增加不需要CSRF保护的站点
 WTF_CSRF_EXEMPT_LIST = []
-# A CSRF token that expires in 1 year
+# 一个一年有效期的CSRF令牌
 WTF_CSRF_TIME_LIMIT = 60 * 60 * 24 * 365
 
-# Set this API key to enable Mapbox visualizations
+# 设置这个API密钥来使用Mapbox的可视化
 MAPBOX_API_KEY = ''
 ```
 
-All the parameters and default values defined in
-[https://github.com/apache/superset/blob/master/superset/config.py](https://github.com/apache/superset/blob/master/superset/config.py)
-can be altered in your local `superset_config.py`. Administrators will want to read through the file
-to understand what can be configured locally as well as the default values in place.
 
-Since `superset_config.py` acts as a Flask configuration module, it can be used to alter the
-settings Flask itself, as well as Flask extensions like `flask-wtf`, `flask-caching`, `flask-migrate`,
-and `flask-appbuilder`. Flask App Builder, the web framework used by Superset, offers many
-configuration settings. Please consult the
-[Flask App Builder Documentation](https://flask-appbuilder.readthedocs.org/en/latest/config.html)
-for more information on how to configure it.
 
-Make sure to change:
+所有的参数和默认值都定义在[https://github.com/apache/superset/blob/master/superset/config.py](https://github.com/apache/superset/blob/master/superset/config.py)，你可以在本地的`superset_config.py`里修改它。
+管理员想要通过这个了解哪些可以本地配置或者默认值是哪些。
 
-- `SQLALCHEMY_DATABASE_URI`: by default it is stored at ~/.superset/superset.db
-- `SECRET_KEY`: to a long random string
+因为`superset_config.py`作为Flask配置模块，所以它能修改Flask配置，也可以修改Flask扩展，例如：`flask-wtf`, `flask-caching`, `flask-migrate`,
+和 `flask-appbuilder`。Superset使用的Web框架-Flask，提供了许多的配置，
+可以从[Flask App Builder Documentation](https://flask-appbuilder.readthedocs.org/en/latest/config.html)获得更多的关于如何配置它的信息。
 
-If you need to exempt endpoints from CSRF (e.g. if you are running a custom auth postback endpoint),
-you can add the endpoints to `WTF_CSRF_EXEMPT_LIST`:
+确保下面的修改了：
+
+- `SQLALCHEMY_DATABASE_URI`: 默认存储在 ~/.superset/superset.db
+- `SECRET_KEY`:  一个长的随机字符串
+
+如果你想要某个站点免除CSRF(例如，你正在运行一个自定义认证站点)，你可以把该站点增加到`WTF_CSRF_EXEMPT_LIST`:
 
 ```
 WTF_CSRF_EXEMPT_LIST = [‘’]
 ```
 
-### Using a production metastore
+### 使用生产级别的元数据存储
 
-By default Superset is configured to use SQLite, it's a simple and fast way to get you started
-(no installation needed). But for production environments you should use a different database engine on
-a separate host or container.
+Superset默认数据使用SQLite，它是简单的，它是容易上手的（不需要安装）。但是，对于生产环境，你应该在一个独立的主机或容器上使用一个不同的数据库引擎。
 
-Superset supports the following database engines/versions:
+Supeset支持下面的数据库引擎/版本：
 
 | Database Engine                                           | Supported Versions                |
 | --------------------------------------------------------- | --------------------------------- |
 | [PostgreSQL](https://www.postgresql.org/)                 | 10.X, 11.X, 12.X, 13.X, 14.X      |
 | [MySQL](https://www.mysql.com/)                           | 5.X                               |
 
-
-Use the following database drivers and connection strings:
+使用下面的数据库驱动和连接字符串：
 
 | Database                                  | PyPI package                      | Connection String                                                        |
 | ----------------------------------------- | --------------------------------- | ------------------------------------------------------------------------ |
@@ -91,16 +81,13 @@ Use the following database drivers and connection strings:
 | [MySQL](https://www.mysql.com/)           | `pip install mysqlclient`         | `mysql://<UserName>:<DBPassword>@<Database Host>/<Database Name>`        |
 | SQLite                                    | No additional library needed      | `sqlite://`                                                              |
 
-To configure Superset metastore set `SQLALCHEMY_DATABASE_URI` config key on `superset_config`
-to the appropriate connection string.
 
+为了配置Superset元存储，可以通过在`superset_config`文件里的`SQLALCHEMY_DATABASE_URI`配置项来修改连接字符串。
 
-### Running on a WSGI HTTP Server
+###  运行在一个WSGI HTTP服务器
 
-While you can run Superset on NGINX or Apache, we recommend using Gunicorn in async mode. This
-enables impressive concurrency even and is fairly easy to install and configure. Please refer to the
-documentation of your preferred technology to set up this Flask WSGI application in a way that works
-well in your environment. Here’s an async setup known to work well in production:
+当你在NGINX或Apache上运行Superset时，我们推荐使用同步模式的Gunicorn。这样能提高并发水平，而且它是容易安装和配置的。
+请参考你更喜欢的技术文档去设置能让在你的环境中能运行的更好的Flask WSGI应用。
 
 ```
       -w 10 \
@@ -114,39 +101,29 @@ well in your environment. Here’s an async setup known to work well in producti
       "superset.app:create_app()"
 ```
 
-Refer to the [Gunicorn documentation](https://docs.gunicorn.org/en/stable/design.html) for more
-information. _Note that the development web server (`superset run` or `flask run`) is not intended
-for production use._
+参考[Gunicorn文档](https://docs.gunicorn.org/en/stable/design.html)来获得更多的信息。请注意:开发模式的Web服务器(`superset run`或`flask run`)是不适合生产使用的。
 
-If you're not using Gunicorn, you may want to disable the use of `flask-compress` by setting
-`COMPRESS_REGISTER = False` in your `superset_config.py`.
+如果你没有使用Gunicorn，你可以在`superset_config.py`文件通过设置`COMPRESS_REGISTER = False`来禁用`flask-compress`。
 
-### Configuration Behind a Load Balancer
+### 使用负载均衡器的配置
 
-If you are running superset behind a load balancer or reverse proxy (e.g. NGINX or ELB on AWS), you
-may need to utilize a healthcheck endpoint so that your load balancer knows if your superset
-instance is running. This is provided at `/health` which will return a 200 response containing “OK”
-if the webserver is running.
+如果你在使用负载均衡或者代理服务器（例如：NGINX或者ELB在AWS上）之后运行superset,你可能需要集成健康检查终端，这是为了让你的负载均衡器知道你的superset实例正在运行。
+如果web服务器正在运行，在`/health`会返回一个包含“OK”的200响应。
 
-If the load balancer is inserting `X-Forwarded-For/X-Forwarded-Proto` headers, you should set
-`ENABLE_PROXY_FIX = True` in the superset config file (`superset_config.py`) to extract and use the
-headers.
+如果负载均衡器插入`X-Forwarded-For/X-Forwarded-Proto`数据头，你应该在superset配置文件 (`superset_config.py`)增加`ENABLE_PROXY_FIX = True`，来提取和使用数据头。
 
-In case the reverse proxy is used for providing SSL encryption, an explicit definition of the
-`X-Forwarded-Proto` may be required. For the Apache webserver this can be set as follows:
-
+如果反向代理使用了SSL加密，则需要增加`X-Forwarded-Proto`。对于Apache服务器可以通过如下设置：
 ```
 RequestHeader set X-Forwarded-Proto "https"
 ```
 
-### Custom OAuth2 Configuration
+### 自定义OAuth2配置
 
-Beyond FAB supported providers (GitHub, Twitter, LinkedIn, Google, Azure, etc), its easy to connect
-Superset with other OAuth2 Authorization Server implementations that support “code” authorization.
+除了FAB支持的提供者 (GitHub, Twitter, LinkedIn, Google, Azure, etc),它是容易连接到一个带有OAuth2支持“code”授权的认证服务的Superset，
 
-Make sure the pip package [`Authlib`](https://authlib.org/) is installed on the webserver.
+确保 使用pip安装了[`Authlib`](https://authlib.org/) 。
 
-First, configure authorization in Superset `superset_config.py`.
+首先，在`superset_config.py`配置授权
 
 ```python
 AUTH_TYPE = AUTH_OAUTH
@@ -181,8 +158,7 @@ AUTH_USER_REGISTRATION = True
 AUTH_USER_REGISTRATION_ROLE = "Public"
 ```
 
-Then, create a `CustomSsoSecurityManager` that extends `SupersetSecurityManager` and overrides
-`oauth_user_info`:
+然后，创建一个继承了`SupersetSecurityManager`的`CustomSsoSecurityManager`类，重写`oauth_user_info`方法。
 
 ```python
 import logging
@@ -201,23 +177,19 @@ class CustomSsoSecurityManager(SupersetSecurityManager):
     ...
 ```
 
-This file must be located at the same directory than `superset_config.py` with the name
-`custom_sso_security_manager.py`. Finally, add the following 2 lines to `superset_config.py`:
+这个文件必须和superset_config.py`同目录，文件名必须是`custom_sso_security_manager.py`。最后，增加下面的两行内容到`superset_config.py`:
 
 ```
 from custom_sso_security_manager import CustomSsoSecurityManager
 CUSTOM_SECURITY_MANAGER = CustomSsoSecurityManager
 ```
 
-**Notes**
+**注意**
 
-- The redirect URL will be `https://<superset-webserver>/oauth-authorized/<provider-name>`
-  When configuring an OAuth2 authorization provider if needed. For instance, the redirect URL will
-  be `https://<superset-webserver>/oauth-authorized/egaSSO` for the above configuration.
+- 当配置OAuth2认证提供者后访问URL是`https://<superset-webserver>/oauth-authorized/<provider-name>` 。例如, 对于以上配置的访问URL是`https://<superset-webserver>/oauth-authorized/egaSSO`。
 
-- If an OAuth2 authorization server supports OpenID Connect 1.0, you could configure its configuration
-  document URL only without providing `api_base_url`, `access_token_url`, `authorize_url` and other
-  required options like user info endpoint, jwks uri etc. For instance:
+- 如果OAuth2认证服务器支持OpenID Connect 1.0, 你可以配置他的配置文档URL，可以只提供 `api_base_url`, `access_token_url`, `authorize_url` 和其他的必须选项例如：user info endpoint, jwks uri等. 示例:
+
   ```python
   OAUTH_PROVIDERS = [
     {   'name':'egaSSO',
@@ -232,11 +204,11 @@ CUSTOM_SECURITY_MANAGER = CustomSsoSecurityManager
   ]
   ```
 
-### Flask app Configuration Hook
+### Flask应用请求钩子配置
 
-`FLASK_APP_MUTATOR` is a configuration function that can be provided in your environment, receives
-the app object and can alter it in any way. For example, add `FLASK_APP_MUTATOR` into your
-`superset_config.py` to setup session cookie expiration time to 24 hours:
+`FLASK_APP_MUTATOR` 是你环境中的配置函数，它接受一个应用对象，而且它可以在任何时候被修改。例如, 增加 `FLASK_APP_MUTATOR` 到你的
+`superset_config.py` 文件，来设置会话过期时间为24小时：
+
 
 ```python
 from flask import session
@@ -249,20 +221,18 @@ def make_session_permanent():
     '''
     session.permanent = True
 
-# Set up max age of session to 24 hours
+# 设置会话最大的市场为 24小时
 PERMANENT_SESSION_LIFETIME = timedelta(hours=24)
 def FLASK_APP_MUTATOR(app: Flask) -> None:
     app.before_request_funcs.setdefault(None, []).append(make_session_permanent)
 ```
 
-### Feature Flags
+### 特性标志
 
-To support a diverse set of users, Superset has some features that are not enabled by default. For
-example, some users have stronger security restrictions, while some others may not. So Superset
-allow users to enable or disable some features by config. For feature owners, you can add optional
-functionalities in Superset, but will be only affected by a subset of users.
+为了支持不同的用户，Superset默认没有启用一些特性。例如，一些用户可能有严格的安全限制，而其他用户可能没有。所以，Superset允许用户通过配置开启或关闭一些特性。
+对于特性使用者来说,你可以在Superset里增加增加可选的功能，但是，这个只会影响到一部分用户。
 
-You can enable or disable features with flag from `superset_config.py`:
+你可以在`superset_config.py`里使用标志开启或关闭特性：
 
 ```python
 FEATURE_FLAGS = {
@@ -272,16 +242,16 @@ FEATURE_FLAGS = {
 }
 ```
 
-A current list of feature flags can be found in [RESOURCES/FEATURE_FLAGS.md](https://github.com/apache/superset/blob/master/RESOURCES/FEATURE_FLAGS.md).
+可以在[RESOURCES/FEATURE_FLAGS.md](https://github.com/apache/superset/blob/master/RESOURCES/FEATURE_FLAGS.md)找到特性标志列表。
 
-### SECRET_KEY Rotation
+### 更换SECRET_KEY
 
-If you want to rotate the SECRET_KEY(change the existing secret key), follow the below steps.
+如果你想要更换SECRET_KEY（更改存在的secret key），请按照以下步骤操作。
 
-Add the new SECRET_KEY and PREVIOUS_SECRET_KEY to `superset_config.py`:
+增加新的SECRET_KEY和PREVIOUS_SECRET_KEY到`superset_config.py`:
 
 ```python
 PREVIOUS_SECRET_KEY = 'CURRENT_SECRET_KEY' # The default SECRET_KEY for deployment is '21thisismyscretkey12eyyh'
 SECRET_KEY = 'YOUR_OWN_RANDOM_GENERATED_SECRET_KEY'
 ```
-Then run `superset re-encrypt-secrets`
+然后运行 `superset re-encrypt-secrets`

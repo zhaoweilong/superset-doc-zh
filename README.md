@@ -17,36 +17,42 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-# Website
+# 翻译原因
+我在学习Superset的工程中发现相关的资料较少，我决定自己翻译一下Superset的官方文档。本文档基于Superset 2.0.0。
 
-This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
+GihHub Pages的地址为 http://zhaoweilong.github.io/superset-doc-zh
 
-### Installation
+Gitee Pages的地址为 http://zhaoweilong0220.gitee.io/superset-doc-zh
 
-```
-$ yarn install
-```
+# 本地运行中文翻译的文档
+~~~
+npm run start -- --locale zh-Hans
+~~~
+# 构建中文的静态文件
+~~~
+npm run build -- --locale zh-Hans
+~~~
 
-### Local Development
+#使用deploy部署
+在使用deploy部署到GitHub时，deploymentBranch的值需要指定一下，我设置的值为 gh-deploy. GIT_USER的值可以通过配置配置环境来设置，之后就可以直接运行yarn deploy -- --locale zh-Hans
 
-```
-$ yarn start
-```
+~~~
+cmd /C "set "GIT_USER=<GITHUB_USERNAME>" && yarn deploy -- --locale zh-Hans"
+~~~
+## docker部署
+### Dockerfile内容
+~~~
+FROM nginx
+COPY build /usr/share/nginx/html
+~~~
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+###  构建Image
+~~~
+docker  build -t superset-doc-zh .
+~~~
 
-### Build
 
-```
-$ yarn build
-```
-
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
-
-### Deployment
-
-```
-$ GIT_USER=<Your GitHub username> USE_SSH=true yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+### 运行
+~~~
+docker run --name superset-doc-zh -d -p 8080:80 superset-doc-zh
+~~~
