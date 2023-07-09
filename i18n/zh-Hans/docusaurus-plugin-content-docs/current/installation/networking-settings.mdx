@@ -1,44 +1,37 @@
 ---
-title: Additional Networking Settings
+title: 网络配置
 hide_title: true
 sidebar_position: 4
 version: 1
 ---
 
-## Additional Networking Settings
+## 额外网络配置
 
 ### CORS
 
-To configure CORS, or cross-origin resource sharing, the following dependency must be installed:
+为了配置跨域资源共享，需要安装一下依赖：
 
 ```python
 pip install apache-superset[cors]
 ```
 
-The following keys in `superset_config.py` can be specified to configure CORS:
+在`superset_config.py`中下面配置项可以配置CORS:
 
-- `ENABLE_CORS`: Must be set to `True` in order to enable CORS
-- `CORS_OPTIONS`: options passed to Flask-CORS
+- `ENABLE_CORS`: 需要设置为`True`才能开启CORS
+- `CORS_OPTIONS`: 传递给Flask-CORS的选项
   ([documentation](https://flask-cors.corydolphin.com/en/latest/api.html#extension))
 
-### Domain Sharding
+### 域名共享
 
-Chrome allows up to 6 open connections per domain at a time. When there are more than 6 slices in
-dashboard, a lot of time fetch requests are queued up and wait for next available socket.
-[PR 5039](https://github.com/apache/superset/pull/5039) adds domain sharding to Superset,
-and this feature will be enabled by configuration only (by default Superset doesn’t allow
-cross-domain request).
+Chrome允许每个域名同时有6个连接。当在一个仪表板中有超过6个请求时，很多时候获取数据请求会被堵塞，等待下一个可用的网络请求。
+[PR 5039](https://github.com/apache/superset/pull/5039)增加了域名分享功能到Superset，这个特性只能被配置开启（Superset默认不允许跨域请求）。
 
-Add the following setting in your `superset_config.py` file:
+在你的`superset_config.py`文件中增加以下配置：
 
-- `SUPERSET_WEBSERVER_DOMAINS`: list of allowed hostnames for domain sharding feature.
+- `SUPERSET_WEBSERVER_DOMAINS`: 允许使用域名共享特性的主机列表.
 
-### Middleware
+### 中间件
 
-Superset allows you to add your own middleware. To add your own middleware, update the
-`ADDITIONAL_MIDDLEWARE` key in your `superset_config.py`. `ADDITIONAL_MIDDLEWARE` should be a list
-of your additional middleware classes.
+Superset允许你增加你自己的中间件。为了增加你的中间件，需要更新你的`superset_config.py`中`ADDITIONAL_MIDDLEWARE`配置项。 `ADDITIONAL_MIDDLEWARE`应该是你增加的中间件类的列表。
 
-For example, to use `AUTH_REMOTE_USER` from behind a proxy server like nginx, you have to add a
-simple middleware class to add the value of `HTTP_X_PROXY_REMOTE_USER` (or any other custom header
-from the proxy) to Gunicorn’s `REMOTE_USER` environment variable:
+例如，为了使用`AUTH_REMOTE_USER`，它从后端代理服务器,例如nginx，你不得不增加一个简单的中间件类为了增加HTTP_X_PROXY_REMOTE_USER的值（或者其他的代理头）到Gunicorn的`REMOTE_USER`环境变量中。
